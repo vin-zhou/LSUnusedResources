@@ -146,13 +146,13 @@ NSString * const kNotificationResourceStringQueryDone = @"kNotificationResourceS
     NSArray *fileSuffixs = @[@"h", @"m", @"mm", @"swift", @"xib", @"storyboard", @"strings", @"c", @"cpp", @"html", @"js", @"json", @"plist", @"css"];
     
     NSString *cPattern = [NSString stringWithFormat:@"([a-zA-Z0-9_-]+)\\.(%@)", [resSuffixs componentsJoinedByString:@"|"]]; // *.(png|gif|jpg|jpeg)
-    NSString *ojbcPattern = @"@\"(.+?)\""; // @"imageNamed:@\"(.+)\"";//or: (imageNamed|contentOfFile):@\"(.*)\" // http://www.raywenderlich.com/30288/nsregularexpression-tutorial-and-cheat-sheet
-    NSString *xibPattern = @"image name=\"(.+?)\""; // image name="xx"
+    NSString *ojbcPattern = @"@\"(.*?)\""; // @"imageNamed:@\"(.+)\"";//or: (imageNamed|contentOfFile):@\"(.*)\" // http://www.raywenderlich.com/30288/nsregularexpression-tutorial-and-cheat-sheet
+    NSString *xibPattern = @"image name=\"(.*?)\""; // image name="xx"
     
     NSArray *filePatterns = @[cPattern,    // .h
                               ojbcPattern, // .m
                               ojbcPattern, // .mm
-                              @"\"(.+?)\"",// swift.
+                              @"\"(.*?)\"",// swift.
                               xibPattern,  // .xib
                               xibPattern,  // .storyboard
                               @"=\\s*\"(.+)\"\\s*;",  // .strings
