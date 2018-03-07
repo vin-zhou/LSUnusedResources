@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -911,15 +911,74 @@ will be considered to be used )</string>
                                     </button>
                                 </subviews>
                             </customView>
+                            <textField verticalHuggingPriority="750" misplaced="YES" allowsCharacterPickerTouchBarItem="YES" id="mbF-Tz-kcT">
+                                <rect key="frame" x="6" y="260" width="114" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Results" id="qoq-DR-a1l">
+                                    <font key="font" metaFont="systemBold"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <box verticalHuggingPriority="750" misplaced="YES" boxType="separator" id="H8H-le-LsY">
+                                <rect key="frame" x="182" y="264" width="467" height="5"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            </box>
+                            <button verticalHuggingPriority="750" misplaced="YES" id="d2Z-MZ-XC6">
+                                <rect key="frame" x="560" y="3" width="94" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cUV-ux-EjC">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="onSearchButtonClicked:" target="XfG-lQ-9wD" id="UPP-Rr-x63"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" verticalHuggingPriority="750" id="pli-kg-WU6">
+                                <rect key="frame" x="470" y="3" width="94" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="push" title="Export" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5fB-jV-2zZ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="onExportButtonClicked:" target="XfG-lQ-9wD" id="xgb-hz-qwc"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" verticalHuggingPriority="750" id="q84-1O-TmH">
+                                <rect key="frame" x="380" y="3" width="94" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="push" title="Delete" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Cgc-bZ-CHo">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="onDeleteButtonClicked:" target="XfG-lQ-9wD" id="v0B-5Y-B2p"/>
+                                </connections>
+                            </button>
+                            <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="N6r-4n-Mu1">
+                                <rect key="frame" x="10" y="12" width="16" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressIndicator>
+                            <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" id="T1v-qi-uUW">
+                                <rect key="frame" x="26" y="12" width="358" height="17"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="emm-3c-l2S">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                             <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="Wl2-aR-GsO">
-                                <rect key="frame" x="10" y="40" width="640" height="214"/>
+                                <rect key="frame" x="10" y="37" width="638" height="217"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" id="sUG-kO-lfb">
-                                    <rect key="frame" x="1" y="0.0" width="638" height="213"/>
+                                    <rect key="frame" x="1" y="0.0" width="636" height="216"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="DQk-C7-ykG" id="Yqh-sW-D2a">
-                                            <rect key="frame" x="0.0" y="0.0" width="1326" height="190"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1326" height="193"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -982,7 +1041,7 @@ will be considered to be used )</string>
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="zEY-KI-pAy">
-                                    <rect key="frame" x="1" y="197" width="638" height="16"/>
+                                    <rect key="frame" x="1" y="200" width="636" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="KkO-YP-zyT">
@@ -994,65 +1053,28 @@ will be considered to be used )</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
-                            <textField verticalHuggingPriority="750" misplaced="YES" allowsCharacterPickerTouchBarItem="YES" id="mbF-Tz-kcT">
-                                <rect key="frame" x="6" y="262" width="114" height="17"/>
+                            <button verticalHuggingPriority="750" misplaced="YES" id="7S9-D2-deh">
+                                <rect key="frame" x="59" y="259" width="69" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Unused Results" id="qoq-DR-a1l">
-                                    <font key="font" metaFont="systemBold"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <box verticalHuggingPriority="750" misplaced="YES" boxType="separator" id="H8H-le-LsY">
-                                <rect key="frame" x="117" y="267" width="532" height="5"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                            </box>
-                            <button verticalHuggingPriority="750" misplaced="YES" id="d2Z-MZ-XC6">
-                                <rect key="frame" x="560" y="3" width="94" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cUV-ux-EjC">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <buttonCell key="cell" type="radio" title="Unused" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="i59-ZJ-EJf">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="onSearchButtonClicked:" target="XfG-lQ-9wD" id="UPP-Rr-x63"/>
+                                    <action selector="onUnused:" target="XfG-lQ-9wD" id="kyH-AA-Ztu"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" verticalHuggingPriority="750" id="pli-kg-WU6">
-                                <rect key="frame" x="470" y="3" width="94" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <buttonCell key="cell" type="push" title="Export" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5fB-jV-2zZ">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <button verticalHuggingPriority="750" misplaced="YES" id="vkw-gP-5qS">
+                                <rect key="frame" x="128" y="259" width="52" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Total" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="5L5-Rl-bak">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="onExportButtonClicked:" target="XfG-lQ-9wD" id="xgb-hz-qwc"/>
+                                    <action selector="onTotal:" target="XfG-lQ-9wD" id="No1-lg-uNC"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" verticalHuggingPriority="750" id="q84-1O-TmH">
-                                <rect key="frame" x="380" y="3" width="94" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <buttonCell key="cell" type="push" title="Delete" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Cgc-bZ-CHo">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="onDeleteButtonClicked:" target="XfG-lQ-9wD" id="v0B-5Y-B2p"/>
-                                </connections>
-                            </button>
-                            <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="N6r-4n-Mu1">
-                                <rect key="frame" x="10" y="12" width="16" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </progressIndicator>
-                            <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" id="T1v-qi-uUW">
-                                <rect key="frame" x="26" y="12" width="358" height="17"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="emm-3c-l2S">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                         </subviews>
                     </view>
                     <connections>
@@ -1068,6 +1090,8 @@ will be considered to be used )</string>
                         <outlet property="resultsTableView" destination="Yqh-sW-D2a" id="BS7-d1-Rhr"/>
                         <outlet property="searchButton" destination="d2Z-MZ-XC6" id="5dS-yE-IQm"/>
                         <outlet property="statusLabel" destination="T1v-qi-uUW" id="VL5-uP-7fx"/>
+                        <outlet property="totalResultButton" destination="vkw-gP-5qS" id="IX9-JD-OKY"/>
+                        <outlet property="unusedResultButton" destination="7S9-D2-deh" id="U1H-a5-w9b"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

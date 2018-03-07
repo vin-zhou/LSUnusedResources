@@ -44,7 +44,15 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
 @property (weak) IBOutlet NSButton *exportButton;
 @property (weak) IBOutlet NSButton *deleteButton;
 
+
+@property (weak) IBOutlet NSButton *unusedResultButton;
+@property (weak) IBOutlet NSButton *totalResultButton;
+
 @property (strong, nonatomic) NSMutableArray *unusedResults;
+@property (strong, nonatomic) NSMutableArray *totalResults;
+
+@property (strong, nonatomic) NSMutableArray * currentResults;
+
 @property (assign, nonatomic) BOOL isFileDone;
 @property (assign, nonatomic) BOOL isStringDone;
 @property (strong, nonatomic) NSDate *startTime;
@@ -53,6 +61,22 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
 @end
 
 @implementation MainViewController
+
+- (NSMutableArray*) currentResults {
+    if (self.unusedResultButton.state == NSOnState) {
+        return self.unusedResults;
+    } else {
+        return self.totalResults;
+    }
+}
+
+- (void) setCurrentResults:(NSMutableArray *)currentResults {
+    if (self.unusedResultButton.state == NSOnState) {
+        self.unusedResults = [currentResults mutableCopy];
+    } else {
+        self.totalResults = [currentResults mutableCopy];
+    }
+}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -123,6 +147,7 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
     [[ResourceStringSearcher sharedObject] reset];
     
     [self.unusedResults removeAllObjects];
+    [self.totalResults removeAllObjects];
     [self.resultsTableView reloadData];
     
     self.isFileDone = NO;
@@ -155,7 +180,7 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
         NSString *projectPath = [self.pathTextField stringValue];
         [outputResults appendFormat:@"Unused Resources In Project: \n%@\n\n", projectPath];
         
-        for (ResourceFileInfo *info in self.unusedResults) {
+        for (ResourceFileInfo *info in self.currentResults) {
             [outputResults appendFormat:@"%@\n", info.path];
         }
         
@@ -174,7 +199,7 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
 
 - (IBAction)onDeleteButtonClicked:(id)sender {
     if (self.resultsTableView.numberOfSelectedRows > 0) {
-        NSArray *results = [self.unusedResults copy];
+        NSArray *results = [self.currentResults copy];
         NSIndexSet *selectedIndexSet = self.resultsTableView.selectedRowIndexes;
         NSUInteger index = [selectedIndexSet firstIndex];
         while (index != NSNotFound) {
@@ -185,7 +210,7 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
             index = [selectedIndexSet indexGreaterThanIndex:index];
         }
         
-        [self.unusedResults removeObjectsAtIndexes:selectedIndexSet];
+        [self.currentResults removeObjectsAtIndexes:selectedIndexSet];
         [self.resultsTableView reloadData];
         [self updateUnusedResultsCount];
     } else {
@@ -216,10 +241,10 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
 - (void)onResultsTableViewSingleClicked {
     // Copy to pasteboard
     NSInteger index = [self.resultsTableView clickedRow];
-    if (self.unusedResults.count == 0 || index >= self.unusedResults.count) {
+    if (self.currentResults.count == 0 || index >= self.currentResults.count) {
         return;
     }
-    ResourceFileInfo *info = [self.unusedResults objectAtIndex:index];
+    ResourceFileInfo *info = [self.currentResults objectAtIndex:index];
     [[NSPasteboard generalPasteboard] clearContents];
     [[NSPasteboard generalPasteboard] setString:info.name forType:NSStringPboardType];
 }
@@ -227,16 +252,32 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
 - (void)onResultsTableViewDoubleClicked {
     // Open finder
     NSInteger index = [self.resultsTableView clickedRow];
-    if (self.unusedResults.count == 0 || index >= self.unusedResults.count) {
+    if (self.currentResults.count == 0 || index >= self.currentResults.count) {
         return;
     }
-    ResourceFileInfo *info = [self.unusedResults objectAtIndex:index];
+    ResourceFileInfo *info = [self.currentResults objectAtIndex:index];
     [[NSWorkspace sharedWorkspace] selectFile:info.path inFileViewerRootedAtPath:@""];
 }
 
 - (IBAction)onIgnoreSimilarCheckboxClicked:(NSButton *)sender {
     [ResourceSettings sharedObject].matchSimilarName = sender.state == NSOnState ? @(YES) : @(NO);
 }
+
+- (IBAction)onUnused:(NSButton *)sender {
+    if (sender.state == NSOnState) {
+        self.totalResultButton.state = NSOffState;
+        [self.resultsTableView reloadData];
+    }
+}
+
+- (IBAction)onTotal:(NSButton *)sender {
+    if (sender.state == NSOnState) {
+        self.unusedResultButton.state = NSOffState;
+        [self.resultsTableView reloadData];
+    }
+}
+
+
 
 #pragma mark - NSNotification
 
@@ -254,7 +295,7 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     if (tableView == self.resultsTableView) {
-        return self.unusedResults.count;
+        return self.currentResults.count;
     } else {
         return [self resourcePatterns].count;
     }
@@ -265,7 +306,7 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
     NSString *identifier = [tableColumn identifier];
     if (tableView == self.resultsTableView) {
         // Get the unused image
-        ResourceFileInfo *info = [self.unusedResults objectAtIndex:row];
+        ResourceFileInfo *info = [self.currentResults objectAtIndex:row];
         
         if ([identifier isEqualToString:kResultIdentifyFileIcon]) {
             return [info image];
@@ -302,26 +343,26 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
         self.isSortDescByFileSize = !self.isSortDescByFileSize;
         
         if (self.isSortDescByFileSize) {
-            array = [self.unusedResults sortedArrayUsingComparator:^NSComparisonResult(ResourceFileInfo *obj1, ResourceFileInfo *obj2) {
+            array = [self.currentResults sortedArrayUsingComparator:^NSComparisonResult(ResourceFileInfo *obj1, ResourceFileInfo *obj2) {
                 return obj1.fileSize < obj2.fileSize;
             }];
         } else {
-            array = [self.unusedResults sortedArrayUsingComparator:^NSComparisonResult(ResourceFileInfo *obj1, ResourceFileInfo *obj2) {
+            array = [self.currentResults sortedArrayUsingComparator:^NSComparisonResult(ResourceFileInfo *obj1, ResourceFileInfo *obj2) {
                 return obj1.fileSize > obj2.fileSize;
             }];
         }
     } else if ([tableColumn.identifier isEqualToString:kResultIdentifyFileName]) {
-        array = [self.unusedResults sortedArrayUsingComparator:^NSComparisonResult(ResourceFileInfo *obj1, ResourceFileInfo *obj2) {
+        array = [self.currentResults sortedArrayUsingComparator:^NSComparisonResult(ResourceFileInfo *obj1, ResourceFileInfo *obj2) {
             return [obj1.name compare:obj2.name];
         }];
     } else  if ([tableColumn.identifier isEqualToString:kResultIdentifyFilePath]){
-        array = [self.unusedResults sortedArrayUsingComparator:^NSComparisonResult(ResourceFileInfo *obj1, ResourceFileInfo *obj2) {
+        array = [self.currentResults sortedArrayUsingComparator:^NSComparisonResult(ResourceFileInfo *obj1, ResourceFileInfo *obj2) {
             return [obj1.path compare:obj2.path];
         }];
     }
     
     if (array) {
-        self.unusedResults = [array mutableCopy];
+        self.currentResults = [array mutableCopy];
         [self.resultsTableView reloadData];
     }
 }
@@ -380,6 +421,8 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
     [_deleteButton setEnabled:state];
     [_deleteButton setHidden:!state];
     [_processIndicator setHidden:state];
+    [_unusedResultButton setEnabled:state];
+    [_totalResultButton setEnabled:state];
 }
 
 - (void)updateUnusedResultsCount {
@@ -418,7 +461,11 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
                     }
                 }
             }
+            ResourceFileInfo *resInfo = [ResourceFileSearcher sharedObject].resNameInfoDict[name];
+            [self.totalResults addObject:resInfo];
         }
+        
+        
         
         [self.resultsTableView reloadData];
         
@@ -451,6 +498,7 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
 
 - (void)setupSettings {
     self.unusedResults = [NSMutableArray array];
+    self.totalResults = [NSMutableArray array];
     
     [self.pathTextField setStringValue:[ResourceSettings sharedObject].projectPath ? : @""];
     NSString *exclude = @"";
