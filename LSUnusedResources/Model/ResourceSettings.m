@@ -14,6 +14,8 @@ static NSString * const kSettingsKeyResourceSuffixs  = @"ResourceSuffixs";
 static NSString * const kSettingsKeyResourcePatterns = @"ResourcePatterns";
 static NSString * const kSettingsKeyMatchSimilarName = @"MatchSimilarName";
 
+static NSString * const kSettingsKeyLinkMapPath = @"LinkMapPath";
+
 #pragma mark - ResourceSettings
 
 @interface ResourceSettings ()
@@ -38,6 +40,7 @@ static NSString * const kSettingsKeyMatchSimilarName = @"MatchSimilarName";
         _resourceSuffixs = [self getValueForKey:kSettingsKeyResourceSuffixs];
         _resourcePatterns = [self getValueForKey:kSettingsKeyResourcePatterns];
         _matchSimilarName = [self getValueForKey:kSettingsKeyMatchSimilarName];
+        _linkMapPath = [self getValueForKey:kSettingsKeyLinkMapPath];
     }
     return self;
 }
@@ -96,6 +99,12 @@ static NSString * const kSettingsKeyMatchSimilarName = @"MatchSimilarName";
     _matchSimilarName = matchSimilarName;
     [self setValue:matchSimilarName forKey:kSettingsKeyMatchSimilarName];
 }
+
+- (void)setLinkMapPath:(NSString *)linkMapPath {
+    _linkMapPath = linkMapPath;
+    [self setValue:linkMapPath forKey:kSettingsKeyLinkMapPath];
+}
+
 
 #pragma mark - Private
 

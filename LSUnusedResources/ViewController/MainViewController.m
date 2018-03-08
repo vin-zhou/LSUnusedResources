@@ -12,6 +12,8 @@
 #import "StringUtils.h"
 #import "ResourceSettings.h"
 
+#import "LinkMapUtils.h"
+
 // Constant strings
 static NSString * const kDefaultResourceSuffixs    = @"imageset|jpg|gif|png";
 static NSString * const kDefaultResourceSeparator  = @"|";
@@ -57,6 +59,13 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
 @property (assign, nonatomic) BOOL isStringDone;
 @property (strong, nonatomic) NSDate *startTime;
 @property (assign, nonatomic) BOOL isSortDescByFileSize;
+
+@property (weak) IBOutlet NSTextField *linkMapPathTextField;
+@property (weak) IBOutlet NSButton *analysisButton;
+
+@property (unsafe_unretained) IBOutlet NSTextView *linkMapResultView;
+
+
 
 @end
 
@@ -522,6 +531,37 @@ static NSString * const kResultIdentifyFilePath    = @"FilePath";
     
     NSNumber *matchSimilar = [ResourceSettings sharedObject].matchSimilarName;
     [self.ignoreSimilarCheckbox setState:matchSimilar.boolValue ? NSOnState : NSOffState];
+    
+    self.linkMapPathTextField.stringValue = [ResourceSettings sharedObject].linkMapPath ? : @"";
 }
+
+
+- (IBAction)onAnalysis:(NSButton *)sender {
+    
+    // Check if user has selected or entered a path
+    NSString *path = self.linkMapPathTextField.stringValue;
+
+    if (!path.length) {
+        [self showAlertWithStyle:NSWarningAlertStyle title:@"Path Error" subtitle:@"LinkMap path is empty"];
+        return;
+    }
+    
+    // Check the path exists
+    BOOL pathExists = [[NSFileManager defaultManager] fileExistsAtPath:path];
+    if (!pathExists) {
+        [self showAlertWithStyle:NSWarningAlertStyle title:@"Path Error" subtitle:@"LinkMap file is not exists"];
+        return;
+    }
+    
+    [self.analysisButton setEnabled: NO];
+    
+    [ResourceSettings sharedObject].linkMapPath = path;
+    
+    NSString* result = [LinkMapUtils startAnalysis: path];
+    self.linkMapResultView.string = result;
+    
+    [self.analysisButton setEnabled: YES];
+}
+
 
 @end

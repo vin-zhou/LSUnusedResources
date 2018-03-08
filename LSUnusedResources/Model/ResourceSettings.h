@@ -18,6 +18,8 @@
 @property (strong, nonatomic) NSArray *resourcePatterns; /**< <NSDictionary *> */
 @property (strong, nonatomic) NSNumber *matchSimilarName;
 
+@property (strong, nonatomic) NSString *linkMapPath;
+
 + (instancetype)sharedObject;
 
 - (void)updateResourcePatternAtIndex:(NSInteger)index withObject:(id)obj forKey:(NSString *)key;
