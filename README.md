@@ -1,9 +1,16 @@
 # LSUnusedResources
-A Mac App to find unused images and resources in an XCode project. It is heavily influenced by jeffhodnett‘s [Unused](http://jeffhodnett.github.io/Unused/), but Unused is very slow, and the results are not entirely correct. So I made some performance optimization, the search speed is more faster than Unused.
+A Mac App to 
+
+1. find unused images and resources in an XCode project;
+2. find total images and resources  in an XCode project;
+3. do LinkMap file analysis.
+
+ It is forked from [Unused](https://github.com/tinymind/LSUnusedResources), 
+and add the function 2.&& 3. by me.
 
 ## Example
 
-![LSMessageHUD Example1](https://github.com/tinymind/LSUnusedResources/raw/master/LSUnusedResourcesExample.gif)  
+
 
 ## Usage
 
@@ -12,49 +19,18 @@ It's an useful utility tool to check what resources are not being used in your X
 1. Click `Browse..` to select a project folder.
 2. Click `Search` to start searching.
 3. Wait a few seconds, the results will be shown in the tableview.
+4. click the "Total" radio button to show the total images/resources.
 
-## Feature
+It also can do LinkMap file analysis when you :
 
-Check `Ignore similar name` to ignore the resources which referenced by string concatenation, `regex: ([-_]?\d+)`.
-
-For example:
-
-You import some resources like:
-
-```
-icon_tag_0.png
-icon_tag_1.png
-icon_tag_2.png
-icon_tag_3.png
-
-icon_title-0.png
-icon_title-1.png
-icon_title-2.png
-
-icon_test0.png
-icon_test1.png
-icon_test2.png
-```
-
-And using in this way:
-
-``` objc
-NSInteger index = random() % 4;
-UIImage *img0 = [UIImage imageNamed:[NSString stringWithFormat:@"icon_tag_%d", index]];
-	
-// Or
-UIImage *img1 = [self createImageWithPrefix:@"icon_title" concat:@"-" andIndex:index];
-
-// Or
-UIImage *img2 = [self createImageWithPrefix:@"icon_test" andIndex:index];
-```
-
-`icon_tag_x.png`, `icon_title-x` and `icon_testx` will be considered to be used, should not be shown as unused resource.
+1. In XCode -> Project -> Build Settings -> search map -> set "Write Link Map File" to yes，and set the storage locaiton for linkMap;
+2. Build the project and find the XX-LinkMap-normal-XXX.txt in the path like:  ```/Users/XXX/Library/Developer/Xcode/DerivedData/XXXX-bcldsniprdstvaduhphplctoilfa/Build/Intermediates.noindex/XXXX.build/Debug-iphonesimulator/XXXX.build/XXXX-LinkMap-normal-x86_64.txt ```
+3. Fill the textField in the LinkMap panel with the path above;
+4. Click the "Analysis" button and wait to see the result in the below view.
 
 ## Installation
 
-* Download: [LSUnusedResources.app.zip](https://github.com/tinymind/LSUnusedResources/raw/master/Release/LSUnusedResources.app.zip)
-* Or build and run the project using XCode.
+* build and run the project using XCode.
 
 ## How it works
 

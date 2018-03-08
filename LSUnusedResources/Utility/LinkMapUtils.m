@@ -109,7 +109,7 @@
     
     NSMutableString *finalResult = [NSMutableString stringWithFormat: @""];
     
-    NSMutableString *result = [@"各模块体积大小\n" mutableCopy];
+    NSMutableString *result = [@"Size of each module: \n" mutableCopy];
     NSUInteger totalSize = 0;
     
     for(SymbolModel *symbol in sorted)
@@ -118,7 +118,7 @@
         totalSize += symbol.size;
     }
     
-    [finalResult appendFormat:@"总体积: %@\n", [self formatSize: totalSize]];
+    [finalResult appendFormat:@"Total size: %@\n", [self formatSize: totalSize]];
     [finalResult appendString: result];
     
     return finalResult;
