@@ -5,7 +5,7 @@ A Mac App to
 2. find total images and resources  in an XCode project;
 3. do LinkMap file analysis.
 
- It is forked from [Unused](https://github.com/tinymind/LSUnusedResources), 
+ It is forked from [tinymind/LSUnusedResources](https://github.com/tinymind/LSUnusedResources) and [bang590/linkmap.js](https://gist.github.com/bang590/8f3e9704f1c2661836cd), 
 and add the function 2.&& 3. by me.
 
 ## Example
