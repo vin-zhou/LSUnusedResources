@@ -1094,7 +1094,7 @@ will be considered to be used )</string>
                                                 </textField>
                                                 <button verticalHuggingPriority="750" misplaced="YES" id="N2r-BH-G2t">
                                                     <rect key="frame" x="563" y="220" width="81" height="32"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                     <buttonCell key="cell" type="push" title="Analysis" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="f5F-Ch-d2t">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -1105,7 +1105,7 @@ will be considered to be used )</string>
                                                 </button>
                                                 <scrollView misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="jOw-Ot-kCe">
                                                     <rect key="frame" x="10" y="9" width="634" height="209"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <clipView key="contentView" id="YBy-wu-OGs">
                                                         <rect key="frame" x="1" y="1" width="632" height="207"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
